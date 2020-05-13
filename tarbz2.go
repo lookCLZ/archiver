@@ -43,7 +43,7 @@ func (tbz2 *TarBz2) Archive(sources []string, destination string, option ...stri
 // Unarchive unpacks the compressed tarball at
 // source to destination. Destination will be
 // treated as a folder name.
-func (tbz2 *TarBz2) Unarchive(source, destination string) error {
+func (tbz2 *TarBz2) Unarchive(source, destination string, option ...string) error {
 	tbz2.wrapReader()
 	return tbz2.Tar.Unarchive(source, destination)
 }

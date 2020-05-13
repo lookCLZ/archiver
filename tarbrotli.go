@@ -40,7 +40,7 @@ func (tbr *TarBrotli) Archive(sources []string, destination string, option ...st
 // Unarchive unpacks the compressed tarball at
 // source to destination. Destination will be
 // treated as a folder name.
-func (tbr *TarBrotli) Unarchive(source, destination string) error {
+func (tbr *TarBrotli) Unarchive(source, destination string, option ...string) error {
 	tbr.wrapReader()
 	return tbr.Tar.Unarchive(source, destination)
 }

@@ -41,7 +41,7 @@ func (tsz *TarSz) Archive(sources []string, destination string, option ...string
 // Unarchive unpacks the compressed tarball at
 // source to destination. Destination will be
 // treated as a folder name.
-func (tsz *TarSz) Unarchive(source, destination string) error {
+func (tsz *TarSz) Unarchive(source, destination string, option ...string) error {
 	tsz.wrapReader()
 	return tsz.Tar.Unarchive(source, destination)
 }

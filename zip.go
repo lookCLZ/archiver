@@ -122,7 +122,7 @@ func (z *Zip) Archive(sources []string, destination string, option ...string) er
 
 // Unarchive unpacks the .zip file at source to destination.
 // Destination will be treated as a folder name.
-func (z *Zip) Unarchive(source, destination string) error {
+func (z *Zip) Unarchive(source, destination string, option ...string) error {
 	if !fileExists(destination) && z.MkdirAll {
 		err := mkdir(destination, 0755)
 		if err != nil {

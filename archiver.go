@@ -75,7 +75,7 @@ type ExtensionChecker interface {
 // Unarchiver is a type that can extract archive files
 // into a folder.
 type Unarchiver interface {
-	Unarchive(source, destination string) error
+	Unarchive(source, destination string, option ...string) error
 }
 
 // Writer can write discrete byte streams of files to

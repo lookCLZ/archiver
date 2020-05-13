@@ -63,7 +63,7 @@ func (*Rar) CheckExt(filename string) error {
 // Unarchive unpacks the .rar file at source to destination.
 // Destination will be treated as a folder name. It supports
 // multi-volume archives.
-func (r *Rar) Unarchive(source, destination string) error {
+func (r *Rar) Unarchive(source, destination string, option ...string) error {
 	if !fileExists(destination) && r.MkdirAll {
 		err := mkdir(destination, 0755)
 		if err != nil {
