@@ -90,7 +90,7 @@ type Writer interface {
 // an input stream.
 type Reader interface {
 	Open(in io.Reader, size int64) error
-	Read() (File, error)
+	Read(option ...string) (File, error)
 	Close() error
 }
 

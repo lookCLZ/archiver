@@ -161,7 +161,7 @@ func (z *Zip) Unarchive(source, destination string, option ...string) error {
 	}
 
 	for {
-		err := z.extractNext(destination)
+		err := z.extractNext(destination, option[0])
 		if err == io.EOF {
 			break
 		}
@@ -177,8 +177,8 @@ func (z *Zip) Unarchive(source, destination string, option ...string) error {
 	return nil
 }
 
-func (z *Zip) extractNext(to string) error {
-	f, err := z.Read()
+func (z *Zip) extractNext(to string, option ...string) error {
+	f, err := z.Read(option[0])
 	if err != nil {
 		return err // don't wrap error; calling loop must break on io.EOF
 	}
@@ -315,6 +315,7 @@ func (z *Zip) Write(f File, option ...string) error {
 	if err != nil {
 		return fmt.Errorf("%s: getting header: %v", f.Name(), err)
 	}
+
 	header.SetPassword(option[0])
 	if f.IsDir() {
 		header.Name += "/" // required - strangely no mention of this in zip spec? but is in godoc...
@@ -388,7 +389,7 @@ func (z *Zip) Open(in io.Reader, size int64) error {
 // already been opened for reading. If there are no
 // more files, the error is io.EOF. The File must
 // be closed when finished reading from it.
-func (z *Zip) Read() (File, error) {
+func (z *Zip) Read(option ...string) (File, error) {
 	if z.zr == nil {
 		return File{}, fmt.Errorf("zip archive is not open")
 	}
@@ -401,7 +402,7 @@ func (z *Zip) Read() (File, error) {
 	// caller can still iterate to the next file
 	zf := z.zr.File[z.ridx]
 	z.ridx++
-
+	zf.FileHeader.SetPassword(option[0])
 	file := File{
 		FileInfo: zf.FileInfo(),
 		Header:   zf.FileHeader,

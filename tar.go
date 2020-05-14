@@ -398,7 +398,7 @@ func (t *Tar) Open(in io.Reader, size int64) error {
 // already been opened for reading. If there are no
 // more files, the error is io.EOF. The File must
 // be closed when finished reading from it.
-func (t *Tar) Read() (File, error) {
+func (t *Tar) Read(option ...string) (File, error) {
 	if t.tr == nil {
 		return File{}, fmt.Errorf("tar archive is not open")
 	}
